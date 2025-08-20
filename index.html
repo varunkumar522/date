@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For My Cute ❤️</title>
+  <style>
+    body {
+      font-family: "Comic Sans MS", cursive;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      color: #ff4b5c;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    h1.hide {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    button {
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .yes {
+      background: #ff4b5c;
+      color: white;
+    }
+    .no {
+      background: #ccc;
+      color: black;
+      position: relative;
+      display: none; /* hidden at start */
+    }
+    button:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <h1 id="question">Hey Cute ❤️!! I Have One Question Can I Ask?</h1>
+  <button class="yes" onclick="handleYes()">Yes 💖</button>
+  <button class="no" onclick="handleNo()">No 😢</button>
+
+  <script>
+    let questions = [
+      "Mere sath Date Par Chalo Ge? 🥺",
+      "Soch Lo !! Jhumke Dilau Ga ❤️",
+      "Dhek Lo !! Kuch Ho Sake Toh 😍"
+    ];
+    let currentIndex = -1; // -1 = intro screen
+    const questionEl = document.getElementById("question");
+    const noBtn = document.querySelector(".no");
+
+    function handleYes() {
+      if (currentIndex === -1) {
+        // From intro → go to first real question
+        currentIndex = 0;
+        changeQuestion(questions[currentIndex]);
+        noBtn.style.display = "inline-block"; // show No button now
+      } else {
+        // If Yes on any of the 3 questions → gift page
+        window.location.href = "gift.html";
+      }
+    }
+
+    function handleNo() {
+      if (currentIndex < questions.length - 1) {
+        // Go to next question
+        currentIndex++;
+        changeQuestion(questions[currentIndex]);
+      } else {
+        // After last question → No button runs away
+        moveNoButton();
+      }
+    }
+
+    function changeQuestion(newText) {
+      // Animate change
+      questionEl.classList.add("hide");
+      setTimeout(() => {
+        questionEl.innerText = newText;
+        questionEl.classList.remove("hide");
+      }, 600);
+    }
+
+    function moveNoButton() {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 50);
+      noBtn.style.position = "absolute";
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
+  </script>
+</body>
+</html>
